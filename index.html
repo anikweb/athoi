@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Anik Kumar Nandi</title>
+    <meta name="description" content="Portfolio of Anik Kumar Nandi" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="shortcut icon"
+      href="https://cdn-icons-png.flaticon.com/512/189/189779.png"
+      type="image/x-icon"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="style.css">
+    
+  </head>
+  <body class="bg-slate-800">
+    <div class="relative font-inter antialiased">
+      <main
+        class="relative min-h-screen flex flex-col justify-center overflow-hidden"
+      >
+        <section id="secret-code-form" style="display: none;">
+          <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-24">
+            <div class="flex justify-center">
+              <div
+                class="max-w-md mx-auto text-center bg-white/80 px-4 sm:px-8 py-10 rounded-xl shadow"
+              >
+                <header class="mb-8">
+                  <h1 class="text-2xl font-bold mb-1">
+                   Enter Secret code 
+                  </h1>
+                  <p class="text-[15px] text-slate-500">
+                   I only trust <strong>Athoi Sona</strong>, so please enter the secret code and prove that you are <strong>Athoi Sona</strong>.
+                  </p>
+                </header>
+                
+                <div id="otp-form">
+                  <div class="flex items-center justify-center gap-3">
+                    <input
+                      type="text"
+                      class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                      pattern="\d*"
+                      maxlength="1"
+                    />
+                    <input
+                      type="text"
+                      class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                      maxlength="1"
+                    />
+                    <input
+                      type="text"
+                      class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                      maxlength="1"
+                    />
+                    <input
+                      type="text"
+                      class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                      maxlength="1"
+                    />
+                  </div>
+                  <div class="max-w-[260px] mx-auto mt-4">
+                    <button
+                      onclick="submitForm()"
+                      type="submit"
+                      class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150"
+                    >
+                      SUBMIT
+                    </button>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            <div role="status" id="otp-loader" class="absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2 d:none hidden">
+              <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/></svg>
+              <span class="sr-only">Loading...</span>
+          </div>
+          </div>
+        </section>
+
+        <section id="propose" style="display: none;">
+          <div class="git-contributions">
+            <div class="contribute-calendar">
+              <div>
+                <div id="led-container"></div>
+              </div>
+            </div>
+          </div>
+
+            <!--  add two button yes no -->
+
+            
+
+            <div class="flex justify-center gap-4 mt-8">
+              <button
+              onclick="accept()"
+                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-8 rounded "
+              >
+              😘
+                I Love you too
+              </button>
+              <button
+              onclick="Swal.fire('You are honest','I really love you, I\'ll try to make you mine. ','warning')"
+                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-8 rounded"
+              >
+              😔
+                I'm Sorry
+                
+              </button>
+          </div>
+
+        </section>
+
+      </main>
+
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('otp-form')
+        const inputs = [...form.querySelectorAll('input[type=text]')]
+        const submit = form.querySelector('button[type=submit]')
+    
+        const handleKeyDown = (e) => {
+            if (
+                !/^[0-9]{1}$/.test(e.key)
+                && e.key !== 'Backspace'
+                && e.key !== 'Delete'
+                && e.key !== 'Tab'
+                && !e.metaKey
+            ) {
+                e.preventDefault()
+            }
+    
+            if (e.key === 'Delete' || e.key === 'Backspace') {
+                const index = inputs.indexOf(e.target);
+                if (index > 0) {
+                    inputs[index - 1].value = '';
+                    inputs[index - 1].focus();
+                }
+            }
+        }
+    
+        const handleInput = (e) => {
+            const { target } = e
+            const index = inputs.indexOf(target)
+            if (target.value) {
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].focus()
+                } else {
+                    submit.focus()
+                }
+            }
+        }
+    
+        const handleFocus = (e) => {
+            e.target.select()
+        }
+    
+        const handlePaste = (e) => {
+            e.preventDefault()
+            const text = e.clipboardData.getData('text')
+            if (!new RegExp(`^[0-9]{${inputs.length}}$`).test(text)) {
+                return
+            }
+            const digits = text.split('')
+            inputs.forEach((input, index) => input.value = digits[index])
+            submit.focus()
+        }
+    
+        inputs.forEach((input) => {
+            input.addEventListener('input', handleInput)
+            input.addEventListener('keydown', handleKeyDown)
+            input.addEventListener('focus', handleFocus)
+            input.addEventListener('paste', handlePaste)
+        })
+    })  
+    </script>
+
+    <!-- LED -->
+     <script>
+      const container = document.getElementById("led-container");
+      const ROWS = 7;
+      const COLS = 50;
+      const ledMatrix = [];
+
+      // Create LED matrix //
+      for (let i = 0; i < ROWS; i++) {
+        const row = document.createElement("div");
+        row.className = "led-row";
+        ledMatrix[i] = [];
+        for (let j = 0; j < COLS; j++) {
+          const led = document.createElement("div");
+          led.className = "led";
+          row.appendChild(led);
+          ledMatrix[i][j] = led;
+        }
+        container.appendChild(row);
+      }
+
+      // LED
+      const font = {
+        A: [
+          [0, 1, 1, 1, 0],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 1, 1, 1, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1]
+        ],
+        B: [
+          [1, 1, 1, 1, 0],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 1, 1, 1, 0],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 1, 1, 1, 0]
+        ],
+        C: [
+          [0, 1, 1, 1, 1],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [0, 1, 1, 1, 1]
+        ],
+        D: [
+          [1, 1, 1, 1, 0],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 1, 1, 1, 0]
+        ],
+        E: [
+          [1, 1, 1, 1, 1],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 1, 1, 1, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 1, 1, 1, 1]
+        ],
+        F: [
+          [1, 1, 1, 1, 1],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 1, 1, 1, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0]
+        ],
+        G: [
+          [0, 1, 1, 1, 1],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 1, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [0, 1, 1, 1, 0]
+        ],
+        H: [
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 1, 1, 1, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1]
+        ],
+        I: [
+          [1, 1, 1, 1, 1],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0],
+          [1, 1, 1, 1, 1]
+        ],
+        J: [
+          [0, 0, 0, 1, 1],
+          [0, 0, 0, 0, 1],
+          [0, 0, 0, 0, 1],
+          [0, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [0, 1, 1, 1, 0]
+        ],
+        K: [
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 1, 0],
+          [1, 0, 1, 0, 0],
+          [1, 1, 0, 0, 0],
+          [1, 0, 1, 0, 0],
+          [1, 0, 0, 1, 0],
+          [1, 0, 0, 0, 1]
+        ],
+        L: [
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 1, 1, 1, 1]
+        ],
+        M: [
+          [1, 0, 0, 0, 1],
+          [1, 1, 0, 1, 1],
+          [1, 0, 1, 0, 1],
+          [1, 0, 1, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1]
+        ],
+        N: [
+          [1, 0, 0, 0, 1],
+          [1, 1, 0, 0, 1],
+          [1, 0, 1, 0, 1],
+          [1, 0, 1, 0, 1],
+          [1, 0, 0, 1, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1]
+        ],
+        O: [
+          [0, 1, 1, 1, 0],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [0, 1, 1, 1, 0]
+        ],
+        P: [
+          [1, 1, 1, 1, 0],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 1, 1, 1, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0]
+        ],
+        Q: [
+          [0, 1, 1, 1, 0],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 1, 0, 1],
+          [1, 0, 0, 1, 0],
+          [0, 1, 1, 0, 1]
+        ],
+        R: [
+          [1, 1, 1, 1, 0],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 1, 1, 1, 0],
+          [1, 0, 1, 0, 0],
+          [1, 0, 0, 1, 0],
+          [1, 0, 0, 0, 1]
+        ],
+        S: [
+          [0, 1, 1, 1, 1],
+          [1, 0, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [0, 1, 1, 1, 0],
+          [0, 0, 0, 0, 1],
+          [0, 0, 0, 0, 1],
+          [1, 1, 1, 1, 0]
+        ],
+        T: [
+          [1, 1, 1, 1, 1],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0]
+        ],
+        U: [
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [0, 1, 1, 1, 0]
+        ],
+        V: [
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [0, 1, 0, 1, 0],
+          [0, 0, 1, 0, 0]
+        ],
+        W: [
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 1, 0, 1],
+          [1, 0, 1, 0, 1],
+          [1, 1, 0, 1, 1],
+          [1, 0, 0, 0, 1]
+        ],
+        X: [
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [0, 1, 0, 1, 0],
+          [0, 0, 1, 0, 0],
+          [0, 1, 0, 1, 0],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1]
+        ],
+        Y: [
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [0, 1, 0, 1, 0],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0]
+        ],
+        Z: [
+          [1, 1, 1, 1, 1],
+          [0, 0, 0, 0, 1],
+          [0, 0, 0, 1, 0],
+          [0, 0, 1, 0, 0],
+          [0, 1, 0, 0, 0],
+          [1, 0, 0, 0, 0],
+          [1, 1, 1, 1, 1]
+        ],
+        "-": [
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [1, 1, 1, 1, 1],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0]
+        ],
+        " ": [
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0]
+        ],
+        0: [
+          [1, 1, 1, 1, 1],
+          [1, 0, 0, 1, 1],
+          [1, 0, 0, 1, 1],
+          [1, 0, 1, 1, 1],
+          [1, 1, 1, 0, 1],
+          [1, 1, 0, 0, 1],
+          [1, 1, 1, 1, 1]
+        ]
+      };
+
+      function getTextMatrix(text) {
+        let matrix = Array(7)
+          .fill()
+          .map(() => []);
+        for (let char of text.toUpperCase()) {
+          if (font[char]) {
+            for (let i = 0; i < 7; i++) {
+              matrix[i] = matrix[i].concat(font[char][i]);
+              matrix[i].push(0);
+            }
+          }
+        }
+        return matrix;
+      }
+
+      const classNames = ["on-1", "on-2", "on-3", "on-4"];
+
+      function displayScrollingText(text) {
+        const textMatrix = getTextMatrix(text + "   "); // Add some space at the end
+        let startCol = -COLS; // Start off-screen to the left
+        let lastUpdate = performance.now();
+        const delay = 100; // Adjust this value to control speed (higher = slower, in milliseconds)
+
+        function updateDisplay() {
+          const now = performance.now();
+          if (now - lastUpdate >= delay) {
+            lastUpdate = now;
+
+            for (let i = 0; i < ROWS; i++) {
+              for (let j = 0; j < COLS; j++) {
+                const textCol = (startCol + j) % textMatrix[0].length;
+
+                if (textCol >= 0) {
+                  const isOn = textMatrix[i][textCol] === 1;
+                  const randomClass =
+                    classNames[Math.floor(Math.random() * classNames.length)];
+
+                  // Remove all possible 'on' classes
+                  ledMatrix[i][j].classList.remove("on-1", "on-2", "on-3", "on-4");
+
+                  if (isOn) {
+                    ledMatrix[i][j].classList.add(randomClass);
+                  }
+                } else {
+                  // Remove all possible 'on' classes if off-screen
+                  ledMatrix[i][j].classList.remove("on-1", "on-2", "on-3", "on-4");
+                }
+              }
+            }
+
+            startCol++;
+
+            if (startCol > textMatrix[0].length) {
+              startCol = -COLS;
+            }
+          }
+          requestAnimationFrame(updateDisplay);
+        }
+
+        updateDisplay();
+      }
+
+     
+
+     </script>
+    <!-- Custom -->
+     <script>
+
+      // document ready function
+
+      document.addEventListener('DOMContentLoaded', () => {
+        checkAuthentication();
+      });
+
+      checkAuthentication = () => {
+        if(sessionStorage.getItem('auth') === 'true') {
+          document.getElementById('secret-code-form').style.display = 'none';
+          document.getElementById('propose').style.display = 'block';
+          displayScrollingText("Hey Athoi Sona, I Recognize You, Please stay here some minute. You are the only one I trust. please do not share this secret code with anyone else. because this is only for you. I love you so much. oh ho, I proposed you. will you marry me?");
+        }else{
+          document.getElementById('secret-code-form').style.display = 'block';
+          document.getElementById('propose').style.display = 'none';
+        }
+      }
+      
+      submitForm = () => {
+        
+        let code = '';
+        document.querySelectorAll('input[type="text"]').forEach((input) => {
+          code += input.value;
+        });
+
+        if(code === '1234') {
+         // make session storage
+          sessionStorage.setItem('auth', 'true');
+          
+          if(sessionStorage.getItem('auth') === 'true') {
+            document.getElementById('otp-loader').classList.remove('hidden');
+            // block the form
+            document.getElementById('otp-form').style.pointerEvents = 'none';
+            document.getElementById('otp-form').style.opacity = '0.5';
+
+            setTimeout(() => {
+              checkAuthentication();
+            }, 2000);
+          }
+          
+        } else {
+          alert('Invalid code');
+        }
+      
+       
+      }
+
+      accept = () => {
+        Swal.fire({
+          title: 'I Love You',
+          text: 'Let’s explore the beautiful possibilities that lie ahead. I believe that opening our hearts to one another could lead to something truly special.',
+          icon: 'success',
+          allowOutsideClick: false,
+          
+        }).then(function() {
+          window.location.href = "https://api.whatsapp.com/send?phone=8801783674575&text=I%20Love%20You%20Too%20Anik%20Kumar%20Nandi";
+        });
+
+        // open whatsapp chat box and send message to the user
+       
+
+
+      }
+     </script>
+     
+
+
+  </body>
+</html>
