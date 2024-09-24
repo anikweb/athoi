@@ -48,23 +48,23 @@
                 <div id="otp-form">
                   <div class="flex items-center justify-center gap-3">
                     <input
-                      type="text"
+                      type="number"
                       class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                       pattern="\d*"
                       maxlength="1"
                     />
                     <input
-                      type="text"
+                      type="number"
                       class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                       maxlength="1"
                     />
                     <input
-                      type="text"
+                      type="number"
                       class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                       maxlength="1"
                     />
                     <input
-                      type="text"
+                      type="number"
                       class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                       maxlength="1"
                     />
@@ -90,7 +90,7 @@
         </section>
 
         <section id="propose" style="display: none;">
-          <div class="git-contributions">
+          <div class="git-contributions bg-slate-800">
             <div class="contribute-calendar">
               <div>
                 <div id="led-container"></div>
@@ -134,7 +134,7 @@
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('otp-form')
-        const inputs = [...form.querySelectorAll('input[type=text]')]
+        const inputs = [...form.querySelectorAll('input[type=number]')]
         const submit = form.querySelector('button[type=submit]')
     
         const handleKeyDown = (e) => {
@@ -557,6 +557,12 @@
         if(sessionStorage.getItem('auth') === 'true') {
           document.getElementById('secret-code-form').style.display = 'none';
           document.getElementById('propose').style.display = 'block';
+          document.body.style.backgroundImage = 'url("./img/athoi.jpeg")';
+          document.body.style.backgroundSize = 'cover';
+          document.body.style.backgroundPosition = 'center';
+          document.body.style.backgroundAttachment = 'fixed';
+          
+
           displayScrollingText("Hey Athoi Sona, I Recognize You, Please stay here some minute. You are the only one I trust. please do not share this secret code with anyone else. because this is only for you. I love you so much. oh ho, I proposed you. will you marry me?");
         }else{
           document.getElementById('secret-code-form').style.display = 'block';
@@ -567,11 +573,11 @@
       submitForm = () => {
         
         let code = '';
-        document.querySelectorAll('input[type="text"]').forEach((input) => {
+        document.querySelectorAll('input[type="number"]').forEach((input) => {
           code += input.value;
         });
 
-        if(code === '1234') {
+        if(code === '0475') {
          // make session storage
           sessionStorage.setItem('auth', 'true');
           
@@ -580,6 +586,8 @@
             // block the form
             document.getElementById('otp-form').style.pointerEvents = 'none';
             document.getElementById('otp-form').style.opacity = '0.5';
+            // change the background image of the body
+
 
             setTimeout(() => {
               checkAuthentication();
